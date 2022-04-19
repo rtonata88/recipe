@@ -17,21 +17,7 @@
         <!-- Mobile menu button-->
         <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
-          <!--
-            Icon when menu is closed.
-
-            Heroicon name: outline/menu
-
-            Menu open: "hidden", Menu closed: "block"
-          -->
           The Recipe App
-          <!--
-            Icon when menu is open.
-
-            Heroicon name: outline/x
-
-            Menu open: "block", Menu closed: "hidden"
-          -->
           <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -45,28 +31,36 @@
           <div class="flex space-x-4">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
             <a href="#" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Home</a>
-
+            <% if user_signed_in? %>
             <a href="#" class="text-gray-300 hover:bg-cyan-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium">My Recipes</a>
 
             <a href="#" class="text-gray-300 hover:bg-cyan-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Foods</a>
+            <% end %>
           </div>
         </div>
       </div>
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+      <% unless user_signed_in? %>
         <button type="button" class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
           <span class="sr-only">View notifications</span>
           <!-- Heroicon name: outline/bell -->
-          <a href="#" class="text-gray-300 hover:bg-cyan-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Sign in</a>
+          <%= link_to "Sign in", new_user_session_path, class: "text-gray-300 hover:bg-cyan-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
         </button>
 
         <!-- Profile dropdown -->
         <div class="ml-3 relative">
           <div>
-          <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-cyan-400 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Sign up
-          </button>
+          <%= link_to "Sign up", new_user_registration_path, class: "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-cyan-400 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
           </div>
         </div>
+         <%end%>
+          <% if user_signed_in? %>
+          <div class="ml-3 relative">
+            <div>
+            <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-cyan-400 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+            </div>
+          </div>
+          <%end%>
       </div>
     </div>
   </div>
