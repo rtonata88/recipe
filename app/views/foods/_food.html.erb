@@ -1,7 +1,14 @@
-<div id="<%= dom_id food %>">
-  <% if action_name != "show" %>
-    <%= link_to "Show this food", food, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this food', edit_food_path(food), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+
+<div id="<%= dom_id food %>" class="border-t border-gray-200">
+  <dl class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6">
+    
+      <dt class="text-sm font-medium text-gray-500"><%= food.name %></dt>
+      <dd class="mt-1 text-sm text-gray-500"><%= food.measurement_unit %></dd>
+      <dd class="mt-1 text-sm text-gray-500"><%= food.price %></dd>
+      <dd class="mt-1 text-sm text-gray-500">
+        
+        <%= button_to "Destroy this food", food, method: :delete, class: "ml-5 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 rounded-md shadow-sm text-sm leading-4 px-3 border border-blue-500 hover:border-transparent rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      </dd>
+    
+  </dl>
 </div>
