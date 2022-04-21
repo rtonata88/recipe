@@ -3,11 +3,17 @@ class RecipesController < ApplicationController
 
   # GET /recipes or /recipes.json
   def index
-    @recipes = Recipe.all
+    if user_signed_in? 
+      @recipes = Recipe.all
+    else
+      @recipes = Recipe.where("public = true")
+    end
   end
 
   # GET /recipes/1 or /recipes/1.json
   def show
+    @foods = Food.all
+    @food_recipe = RecipeFood.new
   end
 
   # GET /recipes/new
@@ -21,7 +27,13 @@ class RecipesController < ApplicationController
 
   # POST /recipes or /recipes.json
   def create
-    @recipe = Recipe.new(recipe_params)
+    @recipe = Recipe.new(user: current_user, 
+                    name: params[:recipe][:name], 
+                    preparation_time: params[:recipe][:preparation_time],
+                    cooking_time: params[:recipe][:cooking_time],
+                    description: params[:recipe][:description],
+                    public: params[:recipe][:public]
+                  )
 
     respond_to do |format|
       if @recipe.save
@@ -57,9 +69,22 @@ class RecipesController < ApplicationController
     end
   end
 
-  def public
-    
+  def add_ingredient
+    food = Food.find(params[:food])
+    recipe = Recipe.find(params[:recipe])
+    @recipe_food = RecipeFood.new(food: food, recipe: recipe)
+
+    respond_to do |format|
+      if @recipe_food.save
+        format.html { redirect_to recipe_url(@recipe), notice: "Ingredient was successfully added to recipe." }
+        format.json { render :show, status: :created, location: @recipe_food }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @recipe_food.errors, status: :unprocessable_entity }
+      end
+    end
   end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -69,6 +94,6 @@ class RecipesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def recipe_params
-      params.fetch(:recipe, {})
+      params.fetch(:recipe, {}).permit(:name, :description, :public, :preparation_time, :cooking_time)
     end
 end

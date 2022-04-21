@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :recipes
+  resources :recipe_foods
+
+  post '/add-ingredient', to: "recipes#add_ingredient"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
