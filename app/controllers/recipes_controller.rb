@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: %i[ show edit update destroy ]
+  protect_from_forgery with: :null_session
 
   # GET /recipes or /recipes.json
   def index
@@ -13,7 +14,8 @@ class RecipesController < ApplicationController
   # GET /recipes/1 or /recipes/1.json
   def show
     @foods = Food.all
-    @food_recipe = RecipeFood.new
+    @recipe = Recipe.find(params[:id])
+    @recipe_food = RecipeFood.new
   end
 
   # GET /recipes/new
@@ -71,15 +73,17 @@ class RecipesController < ApplicationController
 
   def add_ingredient
     food = Food.find(params[:food])
-    recipe = Recipe.find(params[:recipe])
-    @recipe_food = RecipeFood.new(food: food, recipe: recipe)
+    @recipe = Recipe.find(params[:recipe])
+    @recipe_food = RecipeFood.new(food: food, recipe: @recipe, quantity: params[:recipe_food][:quantity])
 
     respond_to do |format|
       if @recipe_food.save
         format.html { redirect_to recipe_url(@recipe), notice: "Ingredient was successfully added to recipe." }
-        format.json { render :show, status: :created, location: @recipe_food }
+        format.json { render :show, status: :created, location: @recipe }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        @foods = Food.all
+        @food_recipe = @recipe.recipe_foods.new
+        format.html { render :show, status: :unprocessable_entity }
         format.json { render json: @recipe_food.errors, status: :unprocessable_entity }
       end
     end

@@ -59,12 +59,14 @@
         </tr>
       </thead>
       <tbody>
+      <% @recipe.recipe_foods.each do | recipe_food | %>
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-          <td scope="col" class="px-6 py-3">Food</td>
-          <td scope="col" class="px-6 py-3">Quantity</td>
-          <td scope="col" class="px-6 py-3">Value</td>
+          <td scope="col" class="px-6 py-3"><%= recipe_food.food.name %></td>
+          <td scope="col" class="px-6 py-3"><%= recipe_food.quantity %></td>
+          <td scope="col" class="px-6 py-3"><%= recipe_food.quantity * recipe_food.food.price%></td>
           <td scope="col" class="px-6 py-3 text-center">Action</td>
         </tr>
+      <% end %>
       </tbody>
     </table>
     </div>
@@ -76,8 +78,14 @@
   <div class="modal-content rounded-lg">
     <span class="close">&times;</span>
     <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="/add-ingredient" method="post">
-    <%= form_with(model: @food_recipe) do |form| %>
+    <%= form_with(model: @recipe_food) do |form| %>
         <h3 class="text-xl font-medium text-gray-900 dark:text-white">Add ingredient</h3>
+        <div class="col-span-3 sm:col-span-2">
+          <label for="company-website" class="block text-sm font-medium text-gray-700"> Quantity </label>
+          <div class="mt-1 flex rounded-md shadow-sm">
+          <%= form.number_field :quantity, class:"appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-cyan-500 focus:border-cyan-200 focus:z-10 sm:text-sm", placeholder: 'Please enter a number' %>
+          </div>
+        </div>
         <div class="col-span-6 sm:col-span-3">
             <label for="public" class="block text-sm font-medium text-gray-700">Select ingredient</label>
             <%= select_tag :food, options_from_collection_for_select(@foods, 'id', 'name'), class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm" %>
