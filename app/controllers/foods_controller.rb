@@ -20,7 +20,7 @@ class FoodsController < ApplicationController
   # POST /foods or /foods.json
   def create
     @food = Food.new(food_params)
-    @food.user_id = current_user.id 
+    @food.user_id = current_user.id
 
     respond_to do |format|
       if @food.save
@@ -34,7 +34,7 @@ class FoodsController < ApplicationController
   end
 
   # PATCH/PUT /foods/1 or /foods/1.json
-   def update
+  def update
     respond_to do |format|
       if @food.update(food_params)
         format.html { redirect_to food_url(@food), notice: 'Food was successfully updated.' }
