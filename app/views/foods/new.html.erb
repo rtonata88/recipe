@@ -1,10 +1,6 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl text-center py-0.5">New food</h1>
-<dl class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-  <dt class="text-sm font-medium text-gray-900"><strong>Name:</strong></dt>
-  <dd class="mt-1 text-sm text-gray-900"><strong>Measurement unit:</strong></dd>
-  <dd class="mt-1 text-sm text-gray-900"><strong>Price:</strong></dd>
-</dl>
+
   <%= render "form", food: @food %>
 
   <%= link_to 'Back to foods', foods_path, class: "ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
