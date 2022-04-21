@@ -1,0 +1,51 @@
+<div class="bg-white shadow overflow-hidden sm:rounded-lg">
+  <div class="px-4 py-5 sm:px-6">
+  <h3>
+    Shopping list
+  </h3>
+  </div>
+  <div class="border-t border-gray-200">
+    <dl>
+      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Recipe name</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @shopping_list.name %></dd>
+      </div>
+      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Amount of foods</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @shopping_list.recipe_foods.count %></dd>
+      </div>
+      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Total value of price</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+        <% value = 0%>
+        <% @shopping_list.recipe_foods.each do |recipe_food| %>
+            <% value = value + recipe_food.quantity * recipe_food.food.price %>
+        <% end %>
+        <%= value %>
+        </dd>
+      </div>
+    </dl>
+  </div>
+  <hr>
+  <div class="px-2 py-2 sm:px-6">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">Food</th>
+          <th scope="col" class="px-6 py-3">Quantity</th>
+          <th scope="col" class="px-6 py-3">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @shopping_list.recipe_foods.each do | recipe_food | %>
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <td scope="col" class="px-6 py-3"><%= recipe_food.food.name %></td>
+          <td scope="col" class="px-6 py-3"><%= recipe_food.quantity %></td>
+          <td scope="col" class="px-6 py-3"><%= recipe_food.quantity * recipe_food.food.price%></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    </div>
+  </div>
