@@ -72,9 +72,9 @@ class RecipesController < ApplicationController
   end
 
   def add_ingredient
-    food = Food.find(params[:food])
+    @food = Food.find(params[:food])
     @recipe = Recipe.find(params[:recipe])
-    @recipe_food = RecipeFood.new(food:, recipe: @recipe, quantity: params[:recipe_food][:quantity])
+    @recipe_food = RecipeFood.new(food: @food, recipe: @recipe, quantity: params[:recipe_food][:quantity])
 
     respond_to do |format|
       if @recipe_food.save
