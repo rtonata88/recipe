@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :foods
 
   devise_for :users
   resources :recipes
@@ -7,7 +6,11 @@ Rails.application.routes.draw do
 
   post '/add-ingredient', to: "recipes#add_ingredient"
   get '/shopping_list/:recipe_id', to: "recipes#shopping_list"
+  get '/foods/new(/:recipe_id)', to: 'foods#new'
 
+  resources :foods
+  resources :recipes
+  devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
