@@ -12,25 +12,26 @@
 
 */
 dl {
-    float: left;
-    display: block;
-    width: 400px;
+  float: left;
+  display: block;
+  width: 400px;
 }
 
 dl dd {
-    float: left;
-    margin-left: -35px;
-    margin-top: 20px;
-    width. 100px;
-    background-color: #e0e0e0;
-    border: 1px solid #777777;
-    padding: 5px;
-    position: relative;
-    display: block;
+  float: left;
+  margin-left: -35px;
+  margin-top: 20px;
+  width. 100px
+  background-color: #e0e0e0;
+  border: 1px solid #777;
+  padding: 5px;
+  position: relative;
+  display: block;
 }
+
 dl dt {
-    float: left;
-    width. 70px;
-    position: relative;
-    display: block;
+  float: left;
+  width. 70px
+  position: relative;
+  display: block;
 }
