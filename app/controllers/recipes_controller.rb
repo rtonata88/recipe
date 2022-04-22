@@ -4,10 +4,12 @@ class RecipesController < ApplicationController
 
   # GET /recipes or /recipes.json
   def index
-    if user_signed_in? 
+    current_uri = request.env['PATH_INFO']
+
+    if current_uri == '/recipes'
       @recipes = Recipe.all
     else
-      @recipes = Recipe.where("public = true")
+      @recipes = Recipe.where("public = true").order("created_at DESC")
     end
   end
 

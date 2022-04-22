@@ -14,11 +14,11 @@
         </div>
         <div class="border-t border-gray-200 w-50">
             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm font-medium text-gray-500">Amount of foods</dt>
+            <dt class="text-sm font-medium text-gray-500">Amount of foods: </dt>
             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= recipe.recipe_foods.count %></dd>
         </div>
         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm font-medium text-gray-500">Total value of price</dt>
+            <dt class="text-sm font-medium text-gray-500">Total price: </dt>
             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
             <% value = 0%>
             <% recipe.recipe_foods.each do |recipe_food| %>
@@ -35,7 +35,9 @@
             <div class="px-3 py-4 sm:px-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900"><%= recipe.name %></h3>
                 <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                <% if can? :read, recipe %>
                     <%= link_to "Click here for details", recipe, class: "font-medium text-indigo-600 hover:text-indigo-500" %>
+                <% end %>
                 </p>
             </div>
             <div class="border-t border-gray-200 w-50">
@@ -44,7 +46,9 @@
                 </div>
                 <hr>
                 <div class="px-2 py-2 sm:px-6">
-                    <%= button_to "Delete", @recipe, method: :delete, class: "group relative flex justify-center py-1 px-1 border border-transparent text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+                    <% if can? :destroy, recipe %>
+                    <%= button_to "Delete", recipe, method: :delete, class: "group relative flex justify-center py-1 px-1 border border-transparent text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+                    <% end %>
                 </div>
             </div>
         </div>

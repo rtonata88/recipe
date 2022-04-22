@@ -6,7 +6,6 @@
   <dt>
     <h3 class="text-lg leading-6 font-medium text-gray-900"><%= @recipe.name %></h3>
     <% if @recipe.public %><span class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">public</span><%end%>
-    
     </dt>
     <dd>
     <%= button_to "Delete", @recipe, method: :delete, class: "group relative flex justify-center py-1 px-1 border border-transparent text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
@@ -15,7 +14,7 @@
   </div>
   <div class="border-t border-gray-200">
     <dl>
-     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <dt class="text-sm font-medium text-gray-500">Public</dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"> <% if @recipe.public %><span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">public</span><%end%></dd>
       </div>
