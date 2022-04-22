@@ -38,7 +38,7 @@ RSpec.describe 'Recipe page', type: :feature do
   end
 
   it "shouldn't be able to remove if you are not the owner of the recipe" do
-    click_on 'Logout'
+    click_on 'Sign out'
     fill_in 'Email', with: @user2.email
     fill_in 'Password', with: @user2.password
     click_button 'Log in'
