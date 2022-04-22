@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
+
+  get '/foods/new(/:recipe_id)', to: 'foods#new'
+
+  resources :foods
+  resources :recipes
+  devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  # root "articles#index"
+  root "recipes#index"
 end
