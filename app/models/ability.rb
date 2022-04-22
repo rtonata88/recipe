@@ -1,19 +1,17 @@
-# frozen_string_literal: true
-
 class Ability
   include CanCan::Ability
 
   def initialize(user)
     # Define abilities for the passed in user here. For example:
     #
-      user ||= User.new # guest user (not logged in)
-      can :read, Recipe, user_id: user.id
-      can :create, Recipe
-      can :read, Food
-      can :create, Food
-      can :destroy, Recipe, user_id: user.id
-      can :destroy, Food, user_id: user.id
-      
+    user ||= User.new # guest user (not logged in)
+    can :read, Recipe, user_id: user.id
+    can :create, Recipe
+    can :read, Food
+    can :create, Food
+    can :destroy, Recipe, user_id: user.id
+    can :destroy, Food, user_id: user.id
+
     #
     # The first argument to `can` is the action you are giving the user
     # permission to do.

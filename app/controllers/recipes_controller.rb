@@ -1,16 +1,16 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: %i[ show edit update destroy ]
+  before_action :set_recipe, only: %i[show edit update destroy]
   protect_from_forgery with: :null_session
-  
+
   # GET /recipes or /recipes.json
   def index
     current_uri = request.env['PATH_INFO']
 
-    if current_uri == '/recipes'
-      @recipes = Recipe.all
-    else
-      @recipes = Recipe.where("public = true").order("created_at DESC")
-    end
+    @recipes = if current_uri == '/recipes'
+                 Recipe.all
+               else
+                 Recipe.where('public = true').order('created_at DESC')
+               end
   end
 
   # GET /recipes/1 or /recipes/1.json
@@ -30,13 +30,12 @@ class RecipesController < ApplicationController
 
   # POST /recipes or /recipes.json
   def create
-    @recipe = Recipe.new(user: current_user, 
-                    name: params[:recipe][:name], 
-                    preparation_time: params[:recipe][:preparation_time],
-                    cooking_time: params[:recipe][:cooking_time],
-                    description: params[:recipe][:description],
-                    public: params[:recipe][:public]
-                  )
+    @recipe = Recipe.new(user: current_user,
+                         name: params[:recipe][:name],
+                         preparation_time: params[:recipe][:preparation_time],
+                         cooking_time: params[:recipe][:cooking_time],
+                         description: params[:recipe][:description],
+                         public: params[:recipe][:public])
 
     respond_to do |format|
       if @recipe.save
@@ -75,11 +74,11 @@ class RecipesController < ApplicationController
   def add_ingredient
     food = Food.find(params[:food])
     @recipe = Recipe.find(params[:recipe])
-    @recipe_food = RecipeFood.new(food: food, recipe: @recipe, quantity: params[:recipe_food][:quantity])
+    @recipe_food = RecipeFood.new(food:, recipe: @recipe, quantity: params[:recipe_food][:quantity])
 
     respond_to do |format|
       if @recipe_food.save
-        format.html { redirect_to recipe_url(@recipe), notice: "Ingredient was successfully added to recipe." }
+        format.html { redirect_to recipe_url(@recipe), notice: 'Ingredient was successfully added to recipe.' }
         format.json { render :show, status: :created, location: @recipe }
       else
         @foods = Food.all
@@ -89,17 +88,18 @@ class RecipesController < ApplicationController
       end
     end
   end
-  
+
   def shopping_list
     @shopping_list = Recipe.includes(:recipe_foods).find(params[:recipe_id])
   end
 
   private
 
-    # Only allow a list of trusted parameters through.
-    def recipe_params
-      params.fetch(:recipe, {}).permit(:name, :description, :public, :preparation_time, :cooking_time)
-    end
+  # Only allow a list of trusted parameters through.
+  def recipe_params
+    params.fetch(:recipe, {}).permit(:name, :description, :public, :preparation_time, :cooking_time)
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_recipe
     @recipe = Recipe.find(params[:id])
