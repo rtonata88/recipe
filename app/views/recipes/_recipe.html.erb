@@ -33,7 +33,7 @@
     <% if active_link('/recipes') %>
             <div class="bg-white shadow overflow-hidden sm:rounded-lg w-50 mt-4">
             <div class="px-3 py-4 sm:px-6">
-                <h3 class="text-lg leading-6 font-medium text-gray-900"><%= recipe.name %></h3>
+                <h3 class="text-lg leading-6 font-medium text-gray-900"><%= link_to recipe.name, recipe %></h3>
                 <p class="mt-1 max-w-2xl text-sm text-gray-500">
                 <% if can? :read, recipe %>
                     <%= link_to "Click here for details", recipe, class: "font-medium text-indigo-600 hover:text-indigo-500" %>
