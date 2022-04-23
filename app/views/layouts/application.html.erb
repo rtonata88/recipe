@@ -123,14 +123,14 @@
         <!-- Profile dropdown -->
         <div class="ml-3 relative">
           <div>
-          <%= link_to "Sign up", new_user_registration_path, class: "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-cyan-400 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+          <%= link_to "Sign up", new_user_registration_path, id: "btn_sign_in", class: "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-cyan-400 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
           </div>
         </div>
          <%end%>
           <% if user_signed_in? %>
           <div class="ml-3 relative">
             <div>
-            <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-cyan-400 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+            <%= button_to "Sign out", destroy_user_session_path, method: :delete, id: "btn_sign_out", class: "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-cyan-400 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
             </div>
           </div>
           <%end%>

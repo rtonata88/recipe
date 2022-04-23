@@ -33,12 +33,11 @@ RSpec.describe 'Recipe page', type: :feature do
     fill_in 'recipe_cooking_time', with: '60'
     click_button 'Save'
     expect(page).to have_content('Pizza')
-    click_link 'Pizza'
-    expect(page).to have_content('Preparation Time')
   end
 
   it "shouldn't be able to remove if you are not the owner of the recipe" do
-    click_button 'Sign out'
+    click_on 'btn_sign_out'
+    click_on 'btn_sign_in'
     fill_in 'Email', with: @user2.email
     fill_in 'Password', with: @user2.password
     click_button 'Log in'
