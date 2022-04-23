@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+
+@layer components {
+  .btn-primary {
+    @apply py-2 px-4 bg-blue-200;
+  }
+}
+
+*/
+dl {
+  float: left;
+  display: block;
+  width: 400px;
+}
+
+dl dd {
+  float: left;
+  margin-left: -35px;
+  margin-top: 20px;
+  width. 100px
+  background-color: #e0e0e0;
+  border: 1px solid #777;
+  padding: 5px;
+  position: relative;
+  display: block;
+}
+
+dl dt {
+  float: left;
+  width. 70px
+  position: relative;
+  display: block;
+}

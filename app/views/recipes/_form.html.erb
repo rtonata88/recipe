@@ -1,0 +1,71 @@
+<%= form_with(model: recipe) do |form| %>
+  <% if recipe.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+      <ul>
+        <% recipe.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+  <div class="md:grid md:grid-cols-3 md:gap-6">
+    <div class="md:col-span-1">
+      <div class="px-4 sm:px-0">
+        <h3 class="text-lg font-medium leading-6 text-gray-900">Recipe</h3>
+        <p class="mt-1 text-sm text-gray-600">Use the form below to create new recipe information. Please complete all the fields.</p>
+      </div>
+    </div>
+    <div class="mt-5 md:mt-0 md:col-span-2">
+      <%= form_with(model: recipe) do |form| %>
+        <div class="shadow sm:rounded-md sm:overflow-hidden">
+          <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+            <div class="grid grid-cols-3 gap-6">
+              <div class="col-span-3 sm:col-span-3">
+                <label for="company-website" class="block text-sm font-medium text-gray-700"> Recipe Name </label>
+                <div class="mt-1 flex rounded-md shadow-sm">
+                <%= form.text_field :name, class:"appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-cyan-500 focus:border-cyan-200 focus:z-10 sm:text-sm", placeholder: 'What would you like to call this recipe' %>
+                </div>
+              </div>
+            </div>
+              <div class="grid grid-cols-4 gap-6">
+              <div class="col-span-3 sm:col-span-2">
+                <label for="company-website" class="block text-sm font-medium text-gray-700"> Preparation Time </label>
+                <div class="mt-1 flex rounded-md shadow-sm">
+                <%= form.number_field :preparation_time, class:"appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-cyan-500 focus:border-cyan-200 focus:z-10 sm:text-sm", placeholder: 'Please enter a number' %>
+                </div>
+              </div>
+            <div class="col-span-3 sm:col-span-2">
+                <label for="company-website" class="block text-sm font-medium text-gray-700"> Cooking time </label>
+                <div class="mt-1 flex rounded-md shadow-sm">
+                <%= form.number_field :cooking_time, class:"appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-cyan-500 focus:border-cyan-200 focus:z-10 sm:text-sm", placeholder: 'Please enter a number' %>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label for="about" class="block text-sm font-medium text-gray-700"> Description </label>
+              <div class="mt-1">
+                <%= form.text_area :description, rows: 6, class:"shadow-sm focus:ring-cyan-500 focus:border-cyan-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md", placeholder: 'Please provide a full description' %>
+              </div>
+            </div>
+            <div class="col-span-6 sm:col-span-3">
+                  <label for="public" class="block text-sm font-medium text-gray-700">Is this recipe public?</label>
+                  <select id="public" name="recipe[public]" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                  </select>
+                </div>
+          </div>
+          <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+            <%= form.submit "Save", class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:bg-cyan-200" %>
+             <%= link_to "Cancel", recipes_path %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>

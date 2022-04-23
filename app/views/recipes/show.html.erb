@@ -1,0 +1,145 @@
+<div class="bg-white shadow overflow-hidden sm:rounded-lg mx-auto w-75">
+  <div class="px-4 py-5 sm:px-6">
+  <dl class="flex w-full">
+  <dt>
+    <h3 class="text-lg leading-6 font-medium text-gray-900"><%= @recipe.name %></h3>
+    <% if @recipe.public %><span class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">public</span><%end%>
+    </dt>
+    <dd>
+    <%= button_to "Delete", @recipe, method: :delete, class: "group relative flex justify-center py-1 px-1 border border-transparent text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+    </dd>
+    </dl>
+  </div>
+  <div class="border-t border-gray-200">
+    <dl>
+     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Public</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"> <% if @recipe.public %><span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">public</span><%end%></dd>
+      </div>
+      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Preparation time</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @recipe.preparation_time %></dd>
+      </div>
+      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Cooking time</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @recipe.cooking_time %></dd>
+      </div>
+      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Description</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @recipe.description %></dd>
+      </div>
+    </dl>
+  </div>
+  <hr>
+  <div class="grid grid-flow-col gap-3 px-2 py-2 sm:px-6 w-full">
+      <div class="col-span-6">
+          <div class="px-2 py-2 sm:px-6">
+              <%= button_to "Generate shopping list", "/shopping_list/#{@recipe.id}", method: :get, class: "text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 rounded-full focus:ring-blue-300 font-medium text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
+          </div>
+      </div>
+      <div class="col-span-4">
+     
+      <div class="text-right px-2 py-2 sm:px-6">
+       <% if user_signed_in? %>
+            <button type="button" id="myBtn" class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            Add ingredients
+            </button>
+             <%end%>
+        </div>
+      </div>
+ 
+  </div>
+  <div class="px-2 py-2 sm:px-6">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">Food</th>
+          <th scope="col" class="px-6 py-3">Quantity</th>
+          <th scope="col" class="px-6 py-3">Value</th>
+          <th class="text-left">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @recipe.recipe_foods.each do | recipe_food | %>
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <td scope="col" class="px-6 py-3"><%= recipe_food.food.name %></td>
+          <td scope="col" class="px-6 py-3"><%= recipe_food.quantity %></td>
+          <td scope="col" class="px-6 py-3"><%= recipe_food.quantity * recipe_food.food.price%></td>
+          <td class="text-center">
+            <div class="grid grid-flow-col gap-1">
+              <div class="flex col-span-1">
+              <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                </a>
+                <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                 </a>
+              </div>
+             
+            </div>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <!-- The Modal -->
+<div id="myModal" class="modal rounded text-left">
+
+  <!-- Modal content -->
+  <div class="modal-content rounded-lg">
+    <span class="close">&times;</span>
+    <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="/add-ingredient" method="post">
+    <%= form_with(model: @recipe_food) do |form| %>
+        <h3 class="text-xl font-medium text-gray-900 dark:text-white">Add ingredient</h3>
+        <div class="col-span-3 sm:col-span-2">
+          <label for="company-website" class="block text-sm font-medium text-gray-700"> Quantity </label>
+          <div class="mt-1 flex rounded-md shadow-sm">
+          <%= form.number_field :quantity, class:"appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-cyan-500 focus:border-cyan-200 focus:z-10 sm:text-sm", placeholder: 'Please enter a number' %>
+          </div>
+        </div>
+        <div class="col-span-6 sm:col-span-3">
+            <label for="public" class="block text-sm font-medium text-gray-700">Select ingredient</label>
+            <%= select_tag :food, options_from_collection_for_select(@foods, 'id', 'name'), class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm" %>
+            <input type="hidden" name="recipe" value="<%= @recipe.id %>">
+        </div>
+        <%= form.submit "Add ingredient", class: "w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>        
+    <% end %>
+  </div>
+
+</div>
+</div>
+
+<script type="text/javascript">
+      // Get the modal
+  var modal = document.getElementById("myModal");
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("myBtn");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks on the button, open the modal
+  btn.onclick = function() {
+    modal.style.display = "block";
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  } 
+</script>
